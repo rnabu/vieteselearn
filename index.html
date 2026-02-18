@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Vietese Learn</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#f2f2f2" />
+
+    <!-- iOS PWA -->
+     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="VietLearn" />
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+
+    <style>
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: #cfcfcf;
+            font-family: Arial, sans-serif;
+            height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 430px;
+            height: 100dvh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .main {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .card-wrapper {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.35s ease;
+        }
+
+        .card {
+            width: 25%;
+            padding: 0px 16px 16px 16px;
+            box-sizing: border-box;
+        }
+        .card h3 {
+            font-size: 16px;
+            color: #808080;
+        }
+        .alpha-card {
+            border-top: 4px solid #dc3545;
+        }
+
+        .word-card {
+            border-top: 4px solid #28a745;
+        }
+
+        .read-card {
+            border-top: 4px solid #0086de;
+        }
+
+        .write-card {
+            border-top: 4px solid #ffea00;
+        }
+
+        .tabbar {
+            display: flex;
+            background: #f2f2f2;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .tab-btn {
+            flex: 1;
+            height: 52px;
+            border: none;
+            background: #e0e0e0;
+            font-size: 16px;
+            color: #333;
+        }
+
+            .tab-btn.active {
+                font-weight: bold;
+                color: white;
+            }
+            /* Màu theo từng tab */
+            .tab-btn[data-route="#alpha"].active {
+                background: #dc3545;
+            }
+
+            .tab-btn[data-route="#word"].active {
+                background: #28a745;
+            }
+
+            .tab-btn[data-route="#read"].active {
+                background: #0086de;
+            }
+
+            .tab-btn[data-route="#write"].active {
+                background: #ffea00;
+                color: #333; /* vàng nên để chữ tối */
+            }
+
+
+        /*sub tab BCC*/
+        .alpha-subtab {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .sub-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            background: #e0e0e0;
+            border-radius: 6px;
+        }
+
+            .sub-btn.active {
+                background: #dc3545;
+                color: white;
+                font-weight: bold;
+            }
+
+        .alpha-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .alpha-item {
+            position: relative;
+            padding: 12px 0;
+            font-size: 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, #dc3545 0%, #dc3545 100%);
+            background-size: 0% 100%;
+            background-repeat: no-repeat;
+            background-color: #f2f2f2;
+            transition: background-size 0.1s linear;
+            will-change: background-size;
+        }
+
+            .alpha-item:active {
+                transform: scale(0.95);
+            }
+
+    </style>
+</head>
+
+<body>
+    <div class="app">
+
+        <!-- MAIN VIEW -->
+        <main class="main">
+            <div class="card-wrapper" id="cardWrapper">
+
+                <!-- LISTEN -->
+                <section class="card alpha-card" data-route="#alpha">
+                    <h3>BẢNG CHỮ CÁI</h3>
+
+                    <!-- Sub Tab -->
+                    <div class="alpha-subtab">
+                        <button id="btnList" class="sub-btn active">Danh sách</button>
+                        <button id="btnFlash" class="sub-btn">Flash card</button>
+                    </div>
+
+                    <div id="alphaContent"></div>
+                </section>
+
+                <!-- SPEAK -->
+                <section class="card word-card" data-route="#word">
+                    <h3>TỪ VỰNG</h3>
+                    <div id="speakContent"></div>
+                </section>
+
+                <!-- READ -->
+                <section class="card read-card" data-route="#read">
+                    <h3>TẬP ĐỌC</h3>
+                    <div id="readContent"></div>
+                </section>
+
+                <!-- WRITE -->
+                <section class="card write-card" data-route="#write">
+                    <h3>TẬP VIẾT</h3>
+                    <div id="writeContent"></div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- TAB BAR -->
+        <nav class="tabbar">
+            <button class="tab-btn" data-route="#alpha">Bảng chữ cái</button>
+            <button class="tab-btn" data-route="#word">Từ vựng</button>
+            <button class="tab-btn" data-route="#read">Tập đọc</button>
+            <button class="tab-btn" data-route="#write">Tập viết</button>
+        </nav>
+
+    </div>
+
+    <script>
+        const wrapper = document.getElementById("cardWrapper");
+        const buttons = document.querySelectorAll(".tab-btn");
+
+        const routes = {
+            "#alpha": 0,
+            "#word": 1,
+            "#read": 2,
+            "#write": 3
+        };
+
+        function render() {
+            const hash = location.hash || "#alpha";
+            const index = routes[hash] ?? 0;
+
+            wrapper.style.transform = `translateX(-${index * 25}%)`;
+
+            buttons.forEach(btn => {
+                btn.classList.toggle(
+                    "active",
+                    btn.dataset.route === hash
+                );
+            });
+        }
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                location.hash = btn.dataset.route;
+            });
+        });
+
+        window.addEventListener("hashchange", render);
+        window.addEventListener("load", render);
+
+        // PWA register
+        if ("serviceWorker" in navigator) {
+            //navigator.serviceWorker.register("/service-worker.js");
+        }
+
+
+        // ===== ALPHA TAB =====
+        const alphaContent = document.getElementById("alphaContent");
+        const btnList = document.getElementById("btnList");
+        const btnFlash = document.getElementById("btnFlash");
+
+        let alphaData = [];
+
+        // Load JSON
+        async function loadAlpha() {
+            try {
+                const res = await fetch("/data/lesson/bcc.json");
+                alphaData = await res.json();
+                renderAlphaList();
+            } catch (err) {
+                alphaContent.innerHTML = "Không tải được dữ liệu bảng chữ cái";
+                console.error(err);
+            }
+        }
+        
+        // Render List
+        function renderAlphaList() {
+            alphaContent.innerHTML = "";
+
+            const container = document.createElement("div");
+            container.className = "alpha-list";
+
+            alphaData.forEach(letter => {
+                const btn = document.createElement("button");
+                btn.className = "alpha-item";
+                btn.textContent = letter.text;
+
+                btn.addEventListener("click", () => {
+                    playLetter(letter, btn);
+                });
+
+                container.appendChild(btn);
+            });
+
+            alphaContent.appendChild(container);
+        }
+
+        const player = new Audio();
+        let currentButton = null;
+
+        function playLetter(letter, button) {
+
+            // Nếu đang có nút khác chạy → reset nó
+            if (currentButton && currentButton !== button) {
+                currentButton.style.backgroundSize = "0% 100%";
+            }
+
+            currentButton = button;
+
+            player.src = `/data/lesson/audio/bcc/${letter.audio}`;
+            player.currentTime = 0;
+            player.play();
+
+            // Khi audio load xong mới lấy duration chính xác
+            player.onloadedmetadata = () => {
+                button.style.backgroundSize = "0% 100%";
+            };
+
+            // Update progress
+            player.ontimeupdate = () => {
+                if (!player.duration) return;
+
+                const percent = (player.currentTime / player.duration) * 100;
+                button.style.backgroundSize = `${percent}% 100%`;
+            };
+
+            // Khi kết thúc
+            player.onended = () => {
+                button.style.backgroundSize = "0% 100%";
+            };
+        }
+
+        // Sub tab switching
+        btnList.addEventListener("click", () => {
+            btnList.classList.add("active");
+            btnFlash.classList.remove("active");
+            renderAlphaList();
+        });
+
+        btnFlash.addEventListener("click", () => {
+            btnFlash.classList.add("active");
+            btnList.classList.remove("active");
+            alphaContent.innerHTML = "<p>Flash card sẽ phát triển sau</p>";
+        });
+
+        // Load khi vào trang
+        window.addEventListener("load", loadAlpha);
+
+    </script>
+</body>
+</html>
