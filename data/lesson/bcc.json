@@ -1,0 +1,176 @@
+[
+    {
+        "order": 1,
+        "text": "a",
+        "uppercase": "A",
+        "audio": "/a.mp3"
+    },
+    {
+        "order": 2,
+        "text": "ă",
+        "uppercase": "Ă",
+        "audio": "/aw.mp3"
+    },
+    {
+        "order": 3,
+        "text": "â",
+        "uppercase": "Â",
+        "audio": "/aa.mp3"
+    },
+    {
+        "order": 4,
+        "text": "b",
+        "uppercase": "B",
+        "audio": "/b.mp3"
+    },
+    {
+        "order": 5,
+        "text": "c",
+        "uppercase": "C",
+        "audio": "/c.mp3"
+    },
+    {
+        "order": 6,
+        "text": "d",
+        "uppercase": "D",
+        "audio": "/d.mp3"
+    },
+    {
+        "order": 7,
+        "text": "đ",
+        "uppercase": "Đ",
+        "audio": "/dd.mp3"
+    },
+    {
+        "order": 8,
+        "text": "e",
+        "uppercase": "E",
+        "audio": "/e.mp3"
+    },
+    {
+        "order": 9,
+        "text": "ê",
+        "uppercase": "Ê",
+        "audio": "/ee.mp3"
+    },
+    {
+        "order": 10,
+        "text": "g",
+        "uppercase": "G",
+        "audio": "/g.mp3"
+    },
+    {
+        "order": 11,
+        "text": "h",
+        "uppercase": "H",
+        "audio": "/h.mp3"
+    },
+    {
+        "order": 12,
+        "text": "i",
+        "uppercase": "I",
+        "audio": "/i.mp3"
+    },
+    {
+        "order": 13,
+        "text": "k",
+        "uppercase": "K",
+        "audio": "/k.mp3"
+    },
+    {
+        "order": 14,
+        "text": "l",
+        "uppercase": "L",
+        "audio": "/l.mp3"
+    },
+    {
+        "order": 15,
+        "text": "m",
+        "uppercase": "M",
+        "audio": "/m.mp3"
+    },
+    {
+        "order": 16,
+        "text": "n",
+        "uppercase": "N",
+        "audio": "/n.mp3"
+    },
+    {
+        "order": 17,
+        "text": "o",
+        "uppercase": "O",
+        "audio": "/o.mp3"
+    },
+    {
+        "order": 18,
+        "text": "ô",
+        "uppercase": "Ô",
+        "audio": "/oo.mp3"
+    },
+    {
+        "order": 19,
+        "text": "ơ",
+        "uppercase": "Ơ",
+        "audio": "/ow.mp3"
+    },
+    {
+        "order": 20,
+        "text": "p",
+        "uppercase": "P",
+        "audio": "/p.mp3"
+    },
+    {
+        "order": 21,
+        "text": "q",
+        "uppercase": "Q",
+        "audio": "/q.mp3"
+    },
+    {
+        "order": 22,
+        "text": "r",
+        "uppercase": "R",
+        "audio": "/r.mp3"
+    },
+    {
+        "order": 23,
+        "text": "s",
+        "uppercase": "S",
+        "audio": "/s.mp3"
+    },
+    {
+        "order": 24,
+        "text": "t",
+        "uppercase": "T",
+        "audio": "/t.mp3"
+    },
+    {
+        "order": 25,
+        "text": "u",
+        "uppercase": "U",
+        "audio": "/u.mp3"
+    },
+    {
+        "order": 26,
+        "text": "ư",
+        "uppercase": "Ư",
+        "audio": "/uw.mp3"
+    },
+    {
+        "order": 27,
+        "text": "v",
+        "uppercase": "V",
+        "audio": "/v.mp3"
+    },
+    {
+        "order": 28,
+        "text": "x",
+        "uppercase": "X",
+        "audio": "/x.mp3"
+    },
+    {
+        "order": 29,
+        "text": "y",
+        "uppercase": "Y",
+        "audio": "/y.mp3"
+    }
+]
