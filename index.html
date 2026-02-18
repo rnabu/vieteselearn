@@ -266,7 +266,7 @@
         // Load JSON
         async function loadAlpha() {
             try {
-                const res = await fetch("./data/lesson/bcc.json");
+                const res = await fetch("data/lesson/bcc.json");
                 alphaData = await res.json();
                 renderAlphaList();
             } catch (err) {
@@ -309,7 +309,7 @@
 
             currentButton = button;
 
-            player.src = `/data/lesson/audio/bcc/${letter.audio}`;
+            player.src = `data/lesson/audio/bcc/${letter.audio}`;
             player.currentTime = 0;
             player.play();
 
@@ -352,3 +352,4 @@
 </body>
 
 </html>
+
