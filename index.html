@@ -24,6 +24,7 @@
             font-weight: normal;
             font-style: normal;
         }
+
         html {
             -webkit-text-size-adjust: 100%;
         }
@@ -62,17 +63,18 @@
 
         .card {
             width: 25%;
-            padding: 0px 16px 16px 16px;
+            padding: 0 16px 16px 16px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
+
         .card h3 {
             font-size: 16px;
             color: #808080;
         }
         .alpha-card {
             border-top: 4px solid #dc3545;
-            display: flex;
-            flex-direction: column;
         }
 
         .word-card {
@@ -95,11 +97,13 @@
 
         .tab-btn {
             flex: 1;
-            height: 52px;
+            height: 70px;
             border: none;
             background: #e0e0e0;
             font-size: 16px;
+            font-weight: bold;
             color: #333;
+            padding-bottom: 20px;
         }
 
             .tab-btn.active {
@@ -145,12 +149,15 @@
                 color: white;
                 font-weight: bold;
             }
-        
-        #alphaContent {
+        #alphaContent,
+        #speakContent,
+        #readContent,
+        #writeContent {
             flex: 1;
             min-height: 0;
             overflow-y: auto;
         }
+
         .alpha-list {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -175,17 +182,6 @@
             .alpha-item:active {
                 transform: scale(0.95);
             }
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        button {
-            color: inherit;
-        }
-        
-        button:focus {
-            outline: none;
-        }
 
     </style>
 </head>
@@ -203,7 +199,10 @@
 
                     <!-- Sub Tab -->
                     <div class="alpha-subtab">
-                        <button id="btnList" class="sub-btn active">Danh sách</button>
+                        <button id="btnNormal" class="sub-btn active">Co ban</button>
+                        <button id="btnFusion" class="sub-btn">Ket hop</button>
+                        <button id="btnNumber" class="sub-btn">Chu so</button>
+                        <button id="btnNumPlus" class="sub-btn">Chu so +</button>
                         <button id="btnFlash" class="sub-btn">Flash card</button>
                     </div>
 
@@ -283,10 +282,15 @@
 
         // ===== ALPHA TAB =====
         const alphaContent = document.getElementById("alphaContent");
-        const btnList = document.getElementById("btnList");
+        const btnNormal = document.getElementById("btnNormal");
+        const btnFusion = document.getElementById("btnFusion");
+        const btnNumber = document.getElementById("btnNumber");
+        const btnNumPlus = document.getElementById("btnNumPlus");
         const btnFlash = document.getElementById("btnFlash");
 
         let alphaData = [];
+        let fusionData = [];
+        let numberData = [];
 
         // Load JSON
         async function loadAlpha() {
@@ -299,28 +303,27 @@
                 console.error(err);
             }
         }
-        
-        // Render List
-        function renderAlphaList() {
-            alphaContent.innerHTML = "";
-
-            const container = document.createElement("div");
-            container.className = "alpha-list";
-
-            alphaData.forEach(letter => {
-                const btn = document.createElement("button");
-                btn.className = "alpha-item";
-                btn.textContent = letter.text;
-
-                btn.addEventListener("click", () => {
-                    playLetter(letter, btn);
-                });
-
-                container.appendChild(btn);
-            });
-
-            alphaContent.appendChild(container);
+        async function loadFusion() {
+            try {
+                const res = await fetch("data/lesson/fusion.json");
+                fusionData = await res.json();
+                renderFusionList();
+            } catch (err) {
+                alphaContent.innerHTML = "Không tải được dữ liệu bảng chữ cái nang cao";
+                console.error(err);
+            }
         }
+        async function loadNumber() {
+            try {
+                const res = await fetch("data/lesson/number.json");
+                numberData = await res.json();
+                renderNumberList();
+            } catch (err) {
+                alphaContent.innerHTML = "Không tải được dữ liệu bảng chữ so";
+                console.error(err);
+            }
+        }
+        
 
         const player = new Audio();
         let currentButton = null;
@@ -357,26 +360,114 @@
             };
         }
 
-        // Sub tab switching
-        btnList.addEventListener("click", () => {
-            btnList.classList.add("active");
-            btnFlash.classList.remove("active");
-            renderAlphaList();
+
+
+        btnNormal.addEventListener("click", () => {
+            setActive(btnNormal);
+            renderList(alphaData, "data/lesson/audio/bcc", "alpha-item");
+        });
+
+        btnFusion.addEventListener("click", async () => {
+            setActive(btnFusion);
+            if (!fusionData.length) {
+                const res = await fetch("data/lesson/fusion.json");
+                fusionData = await res.json();
+            }
+            renderList(fusionData, "data/lesson/audio/bcc", "alpha-item");
+        });
+
+        btnNumber.addEventListener("click", async () => {
+            setActive(btnNumber);
+            if (!numberData.length) {
+                const res = await fetch("data/lesson/number.json");
+                numberData = await res.json();
+            }
+            renderList(numberData, "data/lesson/audio/number", "alpha-item");
+        });
+
+        btnNumPlus.addEventListener("click", () => {
+            setActive(btnNumPlus);
+            alphaContent.innerHTML = "<p>Num + sẽ phát triển sau</p>";
         });
 
         btnFlash.addEventListener("click", () => {
-            btnFlash.classList.add("active");
-            btnList.classList.remove("active");
+            setActive(btnFlash);
             alphaContent.innerHTML = "<p>Flash card sẽ phát triển sau</p>";
         });
 
+
+        // Sub tab switching
+        function setActive(activeBtn) {
+            document.querySelectorAll(".sub-btn")
+                .forEach(btn => btn.classList.remove("active"));
+
+            activeBtn.classList.add("active");
+        }
+
+        // ===== renderList =====
+        function renderList(data, audioFolder, itemClass) {
+
+            alphaContent.innerHTML = "";
+
+            const container = document.createElement("div");
+            container.className = "alpha-list"; // hoặc grid chung
+
+            data.forEach(item => {
+                const btn = document.createElement("button");
+                btn.className = itemClass;
+                btn.textContent = item.text;
+
+                btn.addEventListener("click", () => {
+                    const src = `${audioFolder}/${item.audio}`;
+                    AudioEngine.play(src, btn);
+                });
+
+                container.appendChild(btn);
+            });
+
+            alphaContent.appendChild(container);
+        }
+
+        // ===== AUDIO ENGINE =====
+        const AudioEngine = (() => {
+            const player = new Audio();
+            let currentButton = null;
+
+            function play(src, button) {
+
+                if (currentButton && currentButton !== button) {
+                    currentButton.style.backgroundSize = "0% 100%";
+                }
+
+                currentButton = button;
+
+                player.src = src;
+                player.currentTime = 0;
+                player.play();
+
+                player.ontimeupdate = () => {
+                    if (!player.duration) return;
+                    const percent = (player.currentTime / player.duration) * 100;
+                    button.style.backgroundSize = `${percent}% 100%`;
+                };
+
+                player.onended = () => {
+                    button.style.backgroundSize = "0% 100%";
+                };
+            }
+
+            return { play };
+        })();
+
         // Load khi vào trang
+        window.addEventListener("load", async () => {
+            const res = await fetch("data/lesson/bcc.json");
+            alphaData = await res.json();
+            renderList(alphaData, "data/lesson/audio/bcc", "alpha-item");
+        });
+
         window.addEventListener("load", loadAlpha);
 
     </script>
 </body>
-
 </html>
-
-
-
