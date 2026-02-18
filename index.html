@@ -266,7 +266,7 @@
         // Load JSON
         async function loadAlpha() {
             try {
-                const res = await fetch("/data/lesson/bcc.json");
+                const res = await fetch("./data/lesson/bcc.json");
                 alphaData = await res.json();
                 renderAlphaList();
             } catch (err) {
@@ -350,4 +350,5 @@
 
     </script>
 </body>
+
 </html>
