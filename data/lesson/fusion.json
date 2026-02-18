@@ -1,0 +1,68 @@
+[
+    {
+        "order": 1,
+        "text": "ch",
+        "uppercase": "Ch",
+        "audio": "/ch.mp3"
+    },
+    {
+        "order": 2,
+        "text": "gh",
+        "uppercase": "Gh",
+        "audio": "/gh.mp3"
+    },
+    {
+        "order": 3,
+        "text": "gi",
+        "uppercase": "Gi",
+        "audio": "/gi.mp3"
+    },
+    {
+        "order": 4,
+        "text": "kh",
+        "uppercase": "Kh",
+        "audio": "/kh.mp3"
+    },
+    {
+        "order": 5,
+        "text": "ng",
+        "uppercase": "Ng",
+        "audio": "/ng.mp3"
+    },
+    {
+        "order": 6,
+        "text": "ngh",
+        "uppercase": "Ngh",
+        "audio": "/ngh.mp3"
+    },
+    {
+        "order": 7,
+        "text": "nh",
+        "uppercase": "Nh",
+        "audio": "/nh.mp3"
+    },
+    {
+        "order": 8,
+        "text": "ph",
+        "uppercase": "Ph",
+        "audio": "/ph.mp3"
+    },
+    {
+        "order": 9,
+        "text": "qu",
+        "uppercase": "Qu",
+        "audio": "/qu.mp3"
+    },
+    {
+        "order": 10,
+        "text": "th",
+        "uppercase": "Th",
+        "audio": "/th.mp3"
+    },
+    {
+        "order": 11,
+        "text": "tr",
+        "uppercase": "Tr",
+        "audio": "/tr.mp3"
+    }
+]

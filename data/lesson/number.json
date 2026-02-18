@@ -1,0 +1,110 @@
+[
+    {
+        "order": 1,
+        "text": "0",
+        "uppercase": "0",
+        "audio": "/0.mp3"
+    },
+    {
+        "order": 2,
+        "text": "1",
+        "uppercase": "1",
+        "audio": "/1.mp3"
+    },
+    {
+        "order": 3,
+        "text": "2",
+        "uppercase": "2",
+        "audio": "/2.mp3"
+    },
+    {
+        "order": 4,
+        "text": "3",
+        "uppercase": "3",
+        "audio": "/3.mp3"
+    },
+    {
+        "order": 5,
+        "text": "4",
+        "uppercase": "4",
+        "audio": "/4.mp3"
+    },
+    {
+        "order": 6,
+        "text": "5",
+        "uppercase": "5",
+        "audio": "/5.mp3"
+    },
+    {
+        "order": 7,
+        "text": "6",
+        "uppercase": "6",
+        "audio": "/6.mp3"
+    },
+    {
+        "order": 8,
+        "text": "7",
+        "uppercase": "7",
+        "audio": "/7.mp3"
+    },
+    {
+        "order": 9,
+        "text": "8",
+        "uppercase": "8",
+        "audio": "/8.mp3"
+    },
+    {
+        "order": 10,
+        "text": "9",
+        "uppercase": "9",
+        "audio": "/9.mp3"
+    },
+    {
+        "order": 11,
+        "text": "10",
+        "uppercase": "10",
+        "audio": "/10.mp3"
+    },
+    {
+        "order": 12,
+        "text": "11",
+        "uppercase": "11",
+        "audio": "/11.mp3"
+    },
+    {
+        "order": 13,
+        "text": "15",
+        "uppercase": "15",
+        "audio": "/15.mp3"
+    },
+    {
+        "order": 14,
+        "text": "20",
+        "uppercase": "20",
+        "audio": "/20.mp3"
+    },
+    {
+        "order": 15,
+        "text": "100",
+        "uppercase": "100",
+        "audio": "/100.mp3"
+    },
+    {
+        "order": 16,
+        "text": "101",
+        "uppercase": "101",
+        "audio": "/101.mp3"
+    },
+    {
+        "order": 17,
+        "text": "1000",
+        "uppercase": "1000",
+        "audio": "/1000.mp3"
+    },
+    {
+        "order": 18,
+        "text": "1001",
+        "uppercase": "1001",
+        "audio": "/1001.mp3"
+    }
+]
