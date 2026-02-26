@@ -182,7 +182,22 @@
             .alpha-item:active {
                 transform: scale(0.95);
             }
-
+        /* Remove tap highlight on mobile */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Remove focus outline on buttons */
+        button {
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        /* Optional: prevent text selection */
+        button, .sub-btn, .tab-btn {
+            user-select: none;
+        }
     </style>
 </head>
 
@@ -469,4 +484,5 @@
     </script>
 </body>
 </html>
+
 
